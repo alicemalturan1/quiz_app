@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/getQuizs',[\App\Http\Controllers\APIController::class,'getQuizs']);
-Route::get('/getQuestions/{quiz_id}',[\App\Http\Controllers\APIController::class,'getQuestions']);
-Route::get('/getAnswers/{question_id}',[\App\Http\Controllers\APIController::class,'getAnswers']);
-Route::get('/getQuestionsAndAnswers/{quiz_id}',[\App\Http\Controllers\APIController::class,'getQuestionAndAnswers']);
-Route::get('/getQuizsAndCategories/',[\App\Http\Controllers\APIController::class,'getQuizsAndCategories']);
+Route::get('/getQuizs', [\App\Http\Controllers\APIController::class, 'getQuizs']);
+Route::get('/getQuestions/{quiz_id}', [\App\Http\Controllers\APIController::class, 'getQuestions']);
+Route::get('/getAnswers/{question_id}', [\App\Http\Controllers\APIController::class, 'getAnswers']);
+Route::get('/getQuestionsAndAnswers/{quiz_id}', [\App\Http\Controllers\APIController::class, 'getQuestionAndAnswers']);
+Route::get('/getQuizsAndCategories/', [\App\Http\Controllers\APIController::class, 'getQuizsAndCategories']);

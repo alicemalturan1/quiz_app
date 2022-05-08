@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class QuizCategoires extends Model
 {
     use HasFactory;
-    protected $table='quiz_categories';
+
+    protected $table = 'quiz_categories';
 }
