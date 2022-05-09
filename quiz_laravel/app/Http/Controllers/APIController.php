@@ -2,44 +2,100 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Answers;
-use App\Models\Questions;
-use App\Models\QuizCategoires;
-use App\Models\Quizs;
-use Illuminate\Http\Request;
+use App\Http\Resources\QuizResource;
+use Illuminate\Http\JsonResponse;
+use App\Http\Requests\GetQuizzesRequest;
+use App\Http\Requests\GetQuizByIdRequest;
+use App\Services\QuizService;
+use App\Http\Requests\GetQuestionByIdRequest;
+use App\Http\Resources\QuestionResource;
+use App\Http\Resources\QuizCategoryResource;
+use App\Http\Requests\GetCategoriesByIdRequest;
+use App\Http\Requests\GetCategoriesRequest;
 
+/**
+ * @group Quiz Endpoints
+ * Api for quizzes
+ */
 class APIController extends Controller
 {
-    public function getQuizs(){
-        return response()->json(Quizs::all());
+
+    /**
+     * @var QuizService
+     */
+    private $quizService;
+
+    public function __construct(QuizService $quizService)
+    {
+        $this->quizService = $quizService;
     }
-    public function getQuestions($quiz_id){
-        return response()->json(Questions::where('quiz_id',$quiz_id)->get());
+
+    /**
+     * Get All Quizzes
+     */
+    public function getQuizzes(GetQuizzesRequest $request): JsonResponse
+    {
+        $result = QuizResource::collection($this->quizService->getQuizzes($request));
+
+        return response()->json($result);
     }
-    public function getAnswers($question_id){
-        return response()->json(Answers::where('question_id',$question_id)->get());
-    }
-    public function getQuestionAndAnswers($quiz_id){
-        $questions = Questions::orderByRaw('RAND()')->where('quiz_id',$quiz_id)->get();
-        $resp = [];
-        foreach ($questions as $item){
-            array_push($resp,[
-                'answers'=>Answers::orderByRaw('RAND()')->where('question_id',$item->id)->get(),
-                'question'=>$item
-            ]);
+
+    /**
+     * Get Quiz by Id
+     * @urlParam id integer required The ID of the quiz
+     * @bodyParam id integer required The ID of the quiz
+     */
+    public function getQuizById(GetQuizByIdRequest $request): JsonResponse
+    {
+        $result = $this->quizService->getQuizById($request);
+
+        if (!$result) {
+            return response()->json(['message' => 'Not Found!'], 404);
         }
-        return response()->json($resp);
+
+        return response()->json(new QuizResource($result));
     }
-    public function getQuizsAndCategories(){
-        $categories = QuizCategoires::orderByRaw('RAND()')->get();
-        $resp = [];
-        foreach ($categories as $item){
-            array_push($resp,[
-                'quizs'=>Quizs::where('category_id',$item->id)->get(),
-                'category'=>$item
-            ]);
+
+    /**
+     * Get Question by Id
+     * @urlParam id integer required The ID of the question
+     * @bodyParam id integer required The ID of the question
+     */
+    public function getQuestionById(GetQuestionByIdRequest $request): JsonResponse
+    {
+        $result = $this->quizService->getQuestionById($request);
+
+        if (!$result) {
+            return response()->json(['message' => 'Not Found!'], 404);
         }
-        return response()->json($resp);
+
+        return response()->json(new QuestionResource($result));
+    }
+
+    /**
+     * Get Category By Id
+     * @urlParam id integer required The ID of the quiz category
+     * @bodyParam id integer required The ID of the quiz category
+     */
+    public function getCategoryById(GetCategoriesByIdRequest $request): JsonResponse
+    {
+        $result = $this->quizService->getCategoryById($request);
+
+        if (!$result) {
+            return response()->json(['message' => 'Not Found!'], 404);
+        }
+
+        return response()->json(new QuizCategoryResource($result));
+    }
+
+    /**
+     * Get All Categories
+     */
+    public function getCategories(GetCategoriesRequest $request): JsonResponse
+    {
+        $result = QuizCategoryResource::collection($this->quizService->getCategories($request));
+
+        return response()->json($result);
     }
 
 }
