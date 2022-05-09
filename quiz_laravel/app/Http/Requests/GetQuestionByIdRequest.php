@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetQuestionByIdRequest extends FormRequest
+class GetQuestionByIdRequest extends BaseFormRequest
 {
     public function rules(): array
     {

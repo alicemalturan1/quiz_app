@@ -19,8 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/getCategories', [APIController::class, 'getCategories']);
-Route::get('/getCategoryById/{id}', [APIController::class, 'getCategoryById'])->where('id', '[0-9]+');
-Route::get('/getQuizzes', [APIController::class, 'getQuizzes']);
-Route::get('/getQuizById/{id}', [APIController::class, 'getQuizById'])->where('id', '[0-9]+');
-Route::get('/getQuestionById/{id}', [APIController::class, 'getQuestionById'])->where('id', '[0-9]+');
+Route::get('getCategories', [APIController::class, 'getCategories']);
+Route::get('getCategoryById/{id}', [APIController::class, 'getCategoryById'])->where('id', '[0-9]+');
+Route::get('getQuizzes', [APIController::class, 'getQuizzes']);
+Route::get('getQuizById/{id}', [APIController::class, 'getQuizById'])->where('id', '[0-9]+');
+Route::get('getQuestionById/{id}', [APIController::class, 'getQuestionById'])->where('id', '[0-9]+');
