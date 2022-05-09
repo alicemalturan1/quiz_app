@@ -16,10 +16,11 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $answer
- * @property int $is_true
+ * @property bool $is_true
  * @property int $question_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Questions|null $question
  * @method static \Illuminate\Database\Eloquent\Builder|Answers newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Answers newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Answers query()
@@ -29,7 +30,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Answers whereIsTrue($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Answers whereQuestionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Answers whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 	class IdeHelperAnswers {}
 }
@@ -43,6 +43,7 @@ namespace App\Models{
  * @property string $question
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Quizzes|null $quiz
  * @method static \Illuminate\Database\Eloquent\Builder|Questions newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Questions newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Questions query()
@@ -51,41 +52,52 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Questions whereQuestion($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Questions whereQuizId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Questions whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 	class IdeHelperQuestions {}
 }
 
 namespace App\Models{
 /**
- * App\Models\QuizCategoires
+ * App\Models\QuizCategories
  *
  * @property int $id
  * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|QuizCategoires newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|QuizCategoires newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|QuizCategoires query()
- * @method static \Illuminate\Database\Eloquent\Builder|QuizCategoires whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|QuizCategoires whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|QuizCategoires whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|QuizCategoires whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Quizzes[] $Quizzes
+ * @property-read int|null $quizzes_count
+ * @method static \Illuminate\Database\Eloquent\Builder|QuizCategories newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|QuizCategories newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|QuizCategories query()
+ * @method static \Illuminate\Database\Eloquent\Builder|QuizCategories whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|QuizCategories whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|QuizCategories whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|QuizCategories whereUpdatedAt($value)
  */
-	class IdeHelperQuizCategoires {}
+	class IdeHelperQuizCategories {}
 }
 
 namespace App\Models{
 /**
- * App\Models\Quizs
+ * App\Models\Quizzes
  *
- * @method static \Illuminate\Database\Eloquent\Builder|Quizs newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Quizs newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Quizs query()
- * @mixin \Eloquent
+ * @property int $id
+ * @property string $title
+ * @property string|null $description
+ * @property int $category_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Quizzes newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Quizzes newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Quizzes query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Quizzes whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Quizzes whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Quizzes whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Quizzes whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Quizzes whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Quizzes whereUpdatedAt($value)
  */
-	class IdeHelperQuizs {}
+	class IdeHelperQuizzes {}
 }
 
 namespace App\Models{
@@ -116,7 +128,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 	class IdeHelperUser {}
 }

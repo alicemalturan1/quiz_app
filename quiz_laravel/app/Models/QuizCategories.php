@@ -4,20 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @mixin IdeHelperQuestions
+ * @mixin IdeHelperQuizCategories
  */
-class Questions extends Model
+class QuizCategories extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         "id",
-        "quiz_id",
-        "question",
+        "name",
         "created_at",
         "updated_at",
     ];
@@ -27,13 +25,8 @@ class Questions extends Model
         "updated_at" => "datetime",
     ];
 
-    public function quiz(): HasOne
+    public function quizzes(): HasMany
     {
-        return $this->hasOne(Quizzes::class, "id", "quiz_id");
-    }
-
-    public function answers(): HasMany
-    {
-        return $this->hasMany(Answers::class, "question_id", "id");
+        return $this->hasMany(Quizzes::class, "category_id", "id");
     }
 }

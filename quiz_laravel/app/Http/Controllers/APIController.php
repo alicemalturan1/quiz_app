@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Answers;
 use App\Models\Questions;
-use App\Models\QuizCategoires;
-use App\Models\Quizs;
+use App\Models\QuizCategories;
+use App\Models\Quizzes;
 
 class APIController extends Controller
 {
     public function getQuizs()
     {
-        return response()->json(Quizs::all());
+        return response()->json(Quizzes::all());
     }
 
     public function getQuestions($quiz_id)
@@ -39,11 +39,11 @@ class APIController extends Controller
 
     public function getQuizsAndCategories()
     {
-        $categories = QuizCategoires::orderByRaw('RAND()')->get();
+        $categories = QuizCategories::orderByRaw('RAND()')->get();
         $resp       = [];
         foreach ($categories as $item) {
             array_push($resp, [
-                'quizs'    => Quizs::where('category_id', $item->id)->get(),
+                'quizs'    => Quizzes::where('category_id', $item->id)->get(),
                 'category' => $item,
             ]);
         }

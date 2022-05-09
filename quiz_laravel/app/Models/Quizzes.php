@@ -8,16 +8,17 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @mixin IdeHelperQuestions
+ * @mixin IdeHelperQuizzes
  */
-class Questions extends Model
+class Quizzes extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         "id",
-        "quiz_id",
-        "question",
+        "category_id",
+        "title",
+        "description",
         "created_at",
         "updated_at",
     ];
@@ -27,13 +28,13 @@ class Questions extends Model
         "updated_at" => "datetime",
     ];
 
-    public function quiz(): HasOne
+    public function category(): HasOne
     {
-        return $this->hasOne(Quizzes::class, "id", "quiz_id");
+        return $this->hasOne(QuizCategories::class, "id", "category_id");
     }
 
-    public function answers(): HasMany
+    public function questions(): HasMany
     {
-        return $this->hasMany(Answers::class, "question_id", "id");
+        return $this->hasMany(Questions::class, "quiz_id", "id");
     }
 }
