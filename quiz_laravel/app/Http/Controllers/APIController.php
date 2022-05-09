@@ -2,52 +2,75 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Answers;
-use App\Models\Questions;
-use App\Models\QuizCategories;
-use App\Models\Quizzes;
+use App\Http\Resources\QuizResource;
+use Illuminate\Http\JsonResponse;
+use App\Http\Requests\GetQuizzesRequest;
+use App\Http\Requests\GetQuizByIdRequest;
+use App\Services\QuizService;
+use App\Http\Requests\GetQuestionByIdRequest;
+use App\Http\Resources\QuestionResource;
+use App\Http\Resources\QuizCategoryResource;
+use App\Http\Requests\GetCategoriesByIdRequest;
+use App\Http\Requests\GetCategoriesRequest;
 
 class APIController extends Controller
 {
-    public function getQuizs()
+
+    /**
+     * @var QuizService
+     */
+    private $quizService;
+
+    public function __construct(QuizService $quizService)
     {
-        return response()->json(Quizzes::all());
+        $this->quizService = $quizService;
     }
 
-    public function getQuestions($quiz_id)
+    public function getQuizzes(GetQuizzesRequest $request): JsonResponse
     {
-        return response()->json(Questions::where('quiz_id', $quiz_id)->get());
+        $result = QuizResource::collection($this->quizService->getQuizzes($request));
+
+        return response()->json($result);
     }
 
-    public function getAnswers($question_id)
+    public function getQuizById(GetQuizByIdRequest $request): JsonResponse
     {
-        return response()->json(Answers::where('question_id', $question_id)->get());
-    }
+        $result = $this->quizService->getQuizById($request);
 
-    public function getQuestionAndAnswers($quiz_id)
-    {
-        $questions = Questions::orderByRaw('RAND()')->where('quiz_id', $quiz_id)->get();
-        $resp      = [];
-        foreach ($questions as $item) {
-            array_push($resp, [
-                'answers'  => Answers::orderByRaw('RAND()')->where('question_id', $item->id)->get(),
-                'question' => $item,
-            ]);
+        if (!$result) {
+            return response()->json(['message' => 'Not Found!'], 404);
         }
-        return response()->json($resp);
+
+        return response()->json(new QuizResource($result));
     }
 
-    public function getQuizsAndCategories()
+    public function getQuestionById(GetQuestionByIdRequest $request): JsonResponse
     {
-        $categories = QuizCategories::orderByRaw('RAND()')->get();
-        $resp       = [];
-        foreach ($categories as $item) {
-            array_push($resp, [
-                'quizs'    => Quizzes::where('category_id', $item->id)->get(),
-                'category' => $item,
-            ]);
+        $result = $this->quizService->getQuestionById($request);
+
+        if (!$result) {
+            return response()->json(['message' => 'Not Found!'], 404);
         }
-        return response()->json($resp);
+
+        return response()->json(new QuestionResource($result));
+    }
+
+    public function getCategoryById(GetCategoriesByIdRequest $request): JsonResponse
+    {
+        $result = $this->quizService->getCategoryById($request);
+
+        if (!$result) {
+            return response()->json(['message' => 'Not Found!'], 404);
+        }
+
+        return response()->json(new QuizCategoryResource($result));
+    }
+
+    public function getCategories(GetCategoriesRequest $request): JsonResponse
+    {
+        $result = QuizCategoryResource::collection($this->quizService->getCategories($request));
+
+        return response()->json($result);
     }
 
 }
