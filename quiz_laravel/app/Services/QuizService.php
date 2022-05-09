@@ -21,7 +21,7 @@ class QuizService
         if ((bool) $request->get("with_category") === true) {
             $query = $query->with([
                 "category" => function ($q) use ($request) {
-                    if ((bool) $request->get("with_category_count") === true) {
+                    if ((bool) $request->get("with_quiz_count") === true) {
                         $q->withCount("quizzes");
                     }
                 },

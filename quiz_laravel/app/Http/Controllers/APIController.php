@@ -13,6 +13,10 @@ use App\Http\Resources\QuizCategoryResource;
 use App\Http\Requests\GetCategoriesByIdRequest;
 use App\Http\Requests\GetCategoriesRequest;
 
+/**
+ * @group Quiz Endpoints
+ * Api for quizzes
+ */
 class APIController extends Controller
 {
 
@@ -26,6 +30,9 @@ class APIController extends Controller
         $this->quizService = $quizService;
     }
 
+    /**
+     * Get All Quizzes
+     */
     public function getQuizzes(GetQuizzesRequest $request): JsonResponse
     {
         $result = QuizResource::collection($this->quizService->getQuizzes($request));
@@ -33,6 +40,11 @@ class APIController extends Controller
         return response()->json($result);
     }
 
+    /**
+     * Get Quiz by Id
+     * @urlParam id integer required The ID of the quiz
+     * @bodyParam id integer required The ID of the quiz
+     */
     public function getQuizById(GetQuizByIdRequest $request): JsonResponse
     {
         $result = $this->quizService->getQuizById($request);
@@ -44,6 +56,11 @@ class APIController extends Controller
         return response()->json(new QuizResource($result));
     }
 
+    /**
+     * Get Question by Id
+     * @urlParam id integer required The ID of the question
+     * @bodyParam id integer required The ID of the question
+     */
     public function getQuestionById(GetQuestionByIdRequest $request): JsonResponse
     {
         $result = $this->quizService->getQuestionById($request);
@@ -55,6 +72,11 @@ class APIController extends Controller
         return response()->json(new QuestionResource($result));
     }
 
+    /**
+     * Get Category By Id
+     * @urlParam id integer required The ID of the quiz category
+     * @bodyParam id integer required The ID of the quiz category
+     */
     public function getCategoryById(GetCategoriesByIdRequest $request): JsonResponse
     {
         $result = $this->quizService->getCategoryById($request);
@@ -66,6 +88,9 @@ class APIController extends Controller
         return response()->json(new QuizCategoryResource($result));
     }
 
+    /**
+     * Get All Categories
+     */
     public function getCategories(GetCategoriesRequest $request): JsonResponse
     {
         $result = QuizCategoryResource::collection($this->quizService->getCategories($request));

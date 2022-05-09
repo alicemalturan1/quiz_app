@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/getCategories', [APIController::class, 'getCategories']);
-Route::get('/getCategoryById/{id}', [APIController::class, 'getCategoryById']);
+Route::get('/getCategoryById/{id}', [APIController::class, 'getCategoryById'])->where('id', '[0-9]+');
 Route::get('/getQuizzes', [APIController::class, 'getQuizzes']);
-Route::get('/getQuizById/{id}', [APIController::class, 'getQuizById']);
-Route::get('/getQuestionById/{id}', [APIController::class, 'getQuestionById']);
+Route::get('/getQuizById/{id}', [APIController::class, 'getQuizById'])->where('id', '[0-9]+');
+Route::get('/getQuestionById/{id}', [APIController::class, 'getQuestionById'])->where('id', '[0-9]+');

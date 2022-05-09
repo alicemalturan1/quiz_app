@@ -7,8 +7,8 @@ class GetQuizzesRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            "with_category"       => "boolean",
-            "with_category_count" => "boolean",
+            "with_category"   => "boolean",
+            "with_quiz_count" => "boolean",
         ];
     }
 
