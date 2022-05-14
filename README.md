@@ -1,8 +1,8 @@
+[<img src="https://i.hizliresim.com/or0afa2.png" width="45%">](https://go.4vio.com/upload/xrecorder-07052022-114213-4a34q8j.mp4 "App Video")
 # quiz
 
 Quiz App Developed from Ali Cemal Turan
 
-https://go.4vio.com/upload/xrecorder-07052022-114213-4a34q8j.mp4
 
 ## Getting Started
 
