@@ -1,7 +1,9 @@
 # quiz
 
 Quiz App Developed from Ali Cemal Turan
-<video src="https://go.4vio.com/upload/xrecorder-07052022-114213-4a34q8j.mp4" autoplay muted> </video>
+
+https://go.4vio.com/upload/xrecorder-07052022-114213-4a34q8j.mp4
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
